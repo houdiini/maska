@@ -9,5 +9,5 @@ const onMaska = (e: CustomEvent<MaskaDetail>) => {
 </script>
 
 <template>
-  <input v-maska data-maska="#-#" @maska="onMaska" />
+  <input v-maska data-mask="#-#" @maska="onMaska" />
 </template>

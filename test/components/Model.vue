@@ -6,6 +6,6 @@ const value = ref('123')
 </script>
 
 <template>
-  <input v-maska data-maska="#-#" data-maska-eager v-model="value" />
+  <input v-maska data-mask="#-#" data-mask-eager v-model="value" />
   <div>{{ value }}</div>
 </template>

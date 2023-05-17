@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive } from 'vue'
 import { MaskaDetail, vMaska } from '../../src'
 
 const emit = defineEmits(['mask1', 'mask2', 'mask3'])
@@ -13,12 +13,12 @@ const options1 = {
 const options2 = {
   onMaska: [
     (detail: MaskaDetail) => emit('mask2', detail),
-    (detail: MaskaDetail) => emit('mask3', detail),
+    (detail: MaskaDetail) => emit('mask3', detail)
   ]
 }
 </script>
 
 <template>
-  <input id="input1" v-maska:[options1]="binded1" data-maska="#-#" />
-  <input id="input2" v-maska:[options2]="binded2" data-maska="#-#" />
+  <input id="input1" v-maska:[options1]="binded1" data-mask="#-#" />
+  <input id="input2" v-maska:[options2]="binded2" data-mask="#-#" />
 </template>

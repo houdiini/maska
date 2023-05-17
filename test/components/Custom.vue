@@ -8,6 +8,6 @@ const value = ref('')
 </script>
 
 <template>
-  <CustomInput v-maska data-maska="#-#" data-maska-eager v-model="value" />
+  <CustomInput v-maska data-mask="#-#" data-mask-eager v-model="value" />
   <div>{{ value }}</div>
 </template>

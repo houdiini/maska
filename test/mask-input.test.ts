@@ -24,7 +24,7 @@ function prepareInput(opts: MaskInputOptions, value = '') {
 
 describe('test init', () => {
   test('init and destroy', async () => {
-    document.body.innerHTML = `<input id="input" data-maska="#">`
+    document.body.innerHTML = `<input id="input" data-mask="#">`
     const input = <HTMLInputElement>document.getElementById('input')
     const mask = new MaskInput(input)
 
@@ -45,17 +45,17 @@ describe('test init', () => {
 
   test('init multiple', async () => {
     document.body.innerHTML = `
-      <input data-maska="#-#" data-maska-eager>
-      <input data-maska="#-#">
+      <input data-mask="#-#" data-mask-eager>
+      <input data-mask="#-#">
     `
-    const mask = new MaskInput('[data-maska]')
+    const mask = new MaskInput('[data-mask]')
 
     expect([...mask.items][0][1].isEager()).toBe(true)
     expect([...mask.items][1][1].isEager()).toBe(false)
   })
 
   test('test callback', async () => {
-    document.body.innerHTML = `<input id="input" data-maska="#-#">`
+    document.body.innerHTML = `<input id="input" data-mask="#-#">`
     const input = <HTMLInputElement>document.getElementById('input')
     const onMaska = vi.fn()
 
@@ -73,7 +73,7 @@ describe('test init', () => {
   })
 
   test('test callbacks', async () => {
-    document.body.innerHTML = `<input id="input" data-maska="#-#">`
+    document.body.innerHTML = `<input id="input" data-mask="#-#">`
     const input = <HTMLInputElement>document.getElementById('input')
     const onMaska1 = vi.fn()
     const onMaska2 = vi.fn()
@@ -131,8 +131,8 @@ interface HooksTestContext {
 describe('test hooks', () => {
   beforeEach<HooksTestContext>((context) => {
     document.body.innerHTML = `<input id="input"
-      data-maska="0.99"
-      data-maska-tokens="0:[0-9]:multiple|9:[0-9]:optional">`
+      data-mask="0.99"
+      data-mask-tokens="0:[0-9]:multiple|9:[0-9]:optional">`
     input = <HTMLInputElement>document.getElementById('input')
 
     const hooks = {
@@ -349,7 +349,7 @@ describe('test hooks', () => {
 
 describe('test callback', () => {
   beforeEach<HooksTestContext>((context) => {
-    document.body.innerHTML = `<input id="input" data-maska="+1 ###">`
+    document.body.innerHTML = `<input id="input" data-mask="+1 ###">`
     input = <HTMLInputElement>document.getElementById('input')
 
     const hooks = {
@@ -432,7 +432,7 @@ describe('test callback', () => {
 
 describe('test eager callback', () => {
   beforeEach<HooksTestContext>((context) => {
-    document.body.innerHTML = `<input id="input" data-maska="+1 ###" data-maska-eager>`
+    document.body.innerHTML = `<input id="input" data-mask="+1 ###" data-mask-eager>`
     input = <HTMLInputElement>document.getElementById('input')
 
     const hooks = {
@@ -521,49 +521,49 @@ describe('test data-attr', () => {
   }
 
   test('empty mask', () => {
-    const mask = prepareMaskWithHtml(`<input id="input" data-maska>`)
+    const mask = prepareMaskWithHtml(`<input id="input" data-mask>`)
     expect([...mask.items][0][1].opts.mask).toBe(undefined)
   })
 
   test('simple mask', () => {
-    const mask = prepareMaskWithHtml(`<input id="input" data-maska="#-#">`)
+    const mask = prepareMaskWithHtml(`<input id="input" data-mask="#-#">`)
     expect([...mask.items][0][1].opts.mask).toBe('#-#')
   })
 
   test('dynamic mask', () => {
     const mask = prepareMaskWithHtml(
-      `<input id="input" data-maska="['#--#', '#-#--#']">`
+      `<input id="input" data-mask="['#--#', '#-#--#']">`
     )
     expect([...mask.items][0][1].opts.mask?.length).toBe(2)
   })
 
   test('eager mask', () => {
-    const mask = prepareMaskWithHtml(`<input id="input" data-maska-eager>`)
+    const mask = prepareMaskWithHtml(`<input id="input" data-mask-eager>`)
     expect([...mask.items][0][1].isEager()).toBe(true)
   })
 
   test('eager mask true', () => {
     const mask = prepareMaskWithHtml(
-      `<input id="input" data-maska-eager="true">`
+      `<input id="input" data-mask-eager="true">`
     )
     expect([...mask.items][0][1].isEager()).toBe(true)
   })
 
   test('eager mask false', () => {
     const mask = prepareMaskWithHtml(
-      `<input id="input" data-maska-eager="false">`
+      `<input id="input" data-mask-eager="false">`
     )
     expect([...mask.items][0][1].isEager()).toBe(false)
   })
 
   test('reversed mask', () => {
-    const mask = prepareMaskWithHtml(`<input id="input" data-maska-reversed>`)
+    const mask = prepareMaskWithHtml(`<input id="input" data-mask-reversed>`)
     expect([...mask.items][0][1].opts.reversed).toBe(true)
   })
 
   test('custom tokens mask', () => {
     const mask = prepareMaskWithHtml(
-      `<input id="input" data-maska-tokens='{ "Z": { "pattern": "[0-9]" } }'>`
+      `<input id="input" data-mask-tokens='{ "Z": { "pattern": "[0-9]" } }'>`
     )
     expect([...mask.items][0][1].opts.tokens).toHaveProperty('#.pattern')
     expect([...mask.items][0][1].opts.tokens).toHaveProperty('Z.pattern')
@@ -571,7 +571,7 @@ describe('test data-attr', () => {
 
   test('replace tokens mask', () => {
     const mask = prepareMaskWithHtml(
-      `<input id="input" data-maska-tokens='{ "Z": { "pattern": "[0-9]" } }' data-maska-tokens-replace>`
+      `<input id="input" data-mask-tokens='{ "Z": { "pattern": "[0-9]" } }' data-mask-tokens-replace>`
     )
     expect([...mask.items][0][1].opts.tokens).toHaveProperty('Z.pattern')
     expect([...mask.items][0][1].opts.tokens).not.toHaveProperty('#.pattern')
@@ -579,14 +579,14 @@ describe('test data-attr', () => {
 
   test('single quotes tokens mask', () => {
     const mask = prepareMaskWithHtml(
-      `<input id="input" data-maska-tokens="{ 'Z': { 'pattern': '[0-9]' } }">`
+      `<input id="input" data-mask-tokens="{ 'Z': { 'pattern': '[0-9]' } }">`
     )
     expect([...mask.items][0][1].opts.tokens).toHaveProperty('Z.pattern')
   })
 
   test('simple tokens mask', () => {
     const mask = prepareMaskWithHtml(
-      `<input id="input" data-maska-tokens="Z:[0-9]|X:[0-9]:optional">`
+      `<input id="input" data-mask-tokens="Z:[0-9]|X:[0-9]:optional">`
     )
     expect([...mask.items][0][1].opts.tokens).toHaveProperty(
       'Z.optional',

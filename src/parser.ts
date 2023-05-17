@@ -9,20 +9,20 @@ export const parseInput = (
 ): MaskOptions => {
   const opts = { ...defaults }
 
-  if (input.dataset.maska != null && input.dataset.maska !== '') {
-    opts.mask = parseMask(input.dataset.maska)
+  if (input.dataset.mask != null && input.dataset.mask !== '') {
+    opts.mask = parseMask(input.dataset.mask)
   }
-  if (input.dataset.maskaEager != null) {
-    opts.eager = parseOpts(input.dataset.maskaEager)
+  if (input.dataset.maskEager != null) {
+    opts.eager = parseOpts(input.dataset.maskEager)
   }
-  if (input.dataset.maskaReversed != null) {
-    opts.reversed = parseOpts(input.dataset.maskaReversed)
+  if (input.dataset.maskReversed != null) {
+    opts.reversed = parseOpts(input.dataset.maskReversed)
   }
-  if (input.dataset.maskaTokensReplace != null) {
-    opts.tokensReplace = parseOpts(input.dataset.maskaTokensReplace)
+  if (input.dataset.maskTokensReplace != null) {
+    opts.tokensReplace = parseOpts(input.dataset.maskTokensReplace)
   }
-  if (input.dataset.maskaTokens != null) {
-    opts.tokens = parseTokens(input.dataset.maskaTokens)
+  if (input.dataset.maskTokens != null) {
+    opts.tokens = parseTokens(input.dataset.maskTokens)
   }
 
   return opts

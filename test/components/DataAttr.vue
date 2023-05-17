@@ -3,5 +3,5 @@ import { vMaska } from '../../src'
 </script>
 
 <template>
-  <input v-maska data-maska="#-#" data-maska-eager />
+  <input v-maska data-mask="#-#" data-mask-eager />
 </template>

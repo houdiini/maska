@@ -6,6 +6,6 @@ const binded = reactive<Partial<MaskaDetail>>({})
 </script>
 
 <template>
-  <input v-maska="binded" data-maska="#-#" />
+  <input v-maska="binded" data-mask="#-#" />
   <div>{{ binded.unmasked }}</div>
 </template>

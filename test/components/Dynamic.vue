@@ -6,5 +6,5 @@ const mask = ref('["#--#", "#-#--#"]')
 </script>
 
 <template>
-  <input v-maska :data-maska="mask" />
+  <input v-maska :data-mask="mask" />
 </template>

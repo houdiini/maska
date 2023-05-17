@@ -6,7 +6,7 @@ const binded = reactive<Partial<MaskaDetail>>({})
 </script>
 
 <template>
-  <input v-maska="binded" data-maska="#-#-#" />
+  <input v-maska="binded" data-mask="#-#-#" />
   <div v-if="binded.completed">Completed</div>
   <div v-else>Uncompleted</div>
 </template>

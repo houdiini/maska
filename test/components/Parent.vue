@@ -4,7 +4,7 @@ import { vMaska } from '../../src'
 
 <template>
   <div v-maska>
-    <input data-maska="#-#" data-maska-eager />
+    <input data-mask="#-#" data-mask-eager />
   </div>
 
   <div v-maska>

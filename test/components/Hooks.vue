@@ -8,5 +8,5 @@ const config = reactive<MaskInputOptions>({
 </script>
 
 <template>
-  <input v-maska:[config] data-maska="A A" data-maska-tokens="A:[A-Z]:multiple" />
+  <input v-maska:[config] data-mask="A A" data-mask-tokens="A:[A-Z]:multiple" />
 </template>

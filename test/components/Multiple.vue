@@ -28,14 +28,14 @@ const onMaska2 = () => {
   <input
     id="input1"
     v-maska:[options]
-    data-maska="#-#"
+    data-mask="#-#"
     v-model="value1"
     @maska="onMaska1"
   />
   <input
     id="input2"
     v-maska
-    data-maska="#-#"
+    data-mask="#-#"
     v-model="value2"
     @maska="onMaska2"
   />

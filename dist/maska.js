@@ -87,7 +87,7 @@ class w {
 }
 const V = (n) => JSON.parse(n.replaceAll("'", '"')), T = (n, t = {}) => {
   const s = { ...t };
-  return n.dataset.maska != null && n.dataset.maska !== "" && (s.mask = L(n.dataset.maska)), n.dataset.maskaEager != null && (s.eager = y(n.dataset.maskaEager)), n.dataset.maskaReversed != null && (s.reversed = y(n.dataset.maskaReversed)), n.dataset.maskaTokensReplace != null && (s.tokensReplace = y(n.dataset.maskaTokensReplace)), n.dataset.maskaTokens != null && (s.tokens = x(n.dataset.maskaTokens)), s;
+  return n.dataset.mask != null && n.dataset.mask !== "" && (s.mask = L(n.dataset.mask)), n.dataset.maskEager != null && (s.eager = y(n.dataset.maskEager)), n.dataset.maskReversed != null && (s.reversed = y(n.dataset.maskReversed)), n.dataset.maskTokensReplace != null && (s.tokensReplace = y(n.dataset.maskTokensReplace)), n.dataset.maskTokens != null && (s.tokens = x(n.dataset.maskTokens)), s;
 }, y = (n) => n !== "" ? !!JSON.parse(n) : !0, L = (n) => n.startsWith("[") && n.endsWith("]") ? V(n) : n, x = (n) => {
   if (n.startsWith("{") && n.endsWith("}"))
     return V(n);
@@ -142,7 +142,7 @@ class J {
     return JSON.stringify(e.opts) !== JSON.stringify(a.opts);
   }
   needUpdateValue(t) {
-    const s = t.dataset.maskaValue;
+    const s = t.dataset.maskValue;
     return s == null && t.value !== "" || s != null && s !== t.value;
   }
   getMaskOpts(t) {
@@ -159,7 +159,7 @@ class J {
     const e = this.items.get(t);
     this.options.preProcess != null && (s = this.options.preProcess(s));
     const a = e.masked(s), i = e.unmasked(e.isEager() ? a : s), h = e.completed(s), r = { masked: a, unmasked: i, completed: h };
-    s = a, this.options.postProcess != null && (s = this.options.postProcess(s)), t.value = s, t.dataset.maskaValue = s, this.options.onMaska != null && (Array.isArray(this.options.onMaska) ? this.options.onMaska.forEach((k) => k(r)) : this.options.onMaska(r)), t.dispatchEvent(new CustomEvent("maska", { detail: r })), t.dispatchEvent(new CustomEvent("input", { detail: r }));
+    s = a, this.options.postProcess != null && (s = this.options.postProcess(s)), t.value = s, t.dataset.maskValue = s, this.options.onMaska != null && (Array.isArray(this.options.onMaska) ? this.options.onMaska.forEach((k) => k(r)) : this.options.onMaska(r)), t.dispatchEvent(new CustomEvent("maska", { detail: r })), t.dispatchEvent(new CustomEvent("input", { detail: r }));
   }
 }
 const v = /* @__PURE__ */ new WeakMap(), N = (n) => {

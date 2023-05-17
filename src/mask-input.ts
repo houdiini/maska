@@ -51,7 +51,7 @@ export class MaskInput {
   }
 
   needUpdateValue (input: HTMLInputElement): boolean {
-    const value = input.dataset.maskaValue
+    const value = input.dataset.maskValue
 
     return (
       (value == null && input.value !== '') ||
@@ -159,7 +159,7 @@ export class MaskInput {
     }
 
     input.value = value
-    input.dataset.maskaValue = value
+    input.dataset.maskValue = value
 
     if (this.options.onMaska != null) {
       if (Array.isArray(this.options.onMaska)) {

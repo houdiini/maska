@@ -17,6 +17,7 @@ This demo is interactive: feel free to edit the examples.
 # Install
 
 <!-- tabs:start -->
+
 ## **Via npm**
 
 ```
@@ -28,14 +29,14 @@ npm i maska
 You can use **Maska** directly from CDN with simple script tag.
 Library API will be exposed on the global `Maska` object:
 
-``` html
+```html
 <script src="https://cdn.jsdelivr.net/npm/maska@2/dist/maska.umd.js"></script>
 <script>
   const { Mask, MaskInput, vMaska } = Maska
 
-  new MaskInput("[data-maska]") // for masked input
-  const mask = new Mask({ mask: "#-#" }) // for programmatic use
-  Vue.createApp({ directives: { maska: vMaska }}).mount('#app') // Vue directive
+  new MaskInput('[data-mask]') // for masked input
+  const mask = new Mask({ mask: '#-#' }) // for programmatic use
+  Vue.createApp({ directives: { maska: vMaska } }).mount('#app') // Vue directive
 </script>
 ```
 
@@ -43,7 +44,7 @@ Library API will be exposed on the global `Maska` object:
 
 For modern browsers you can use ES modules build with (optional) [import maps](https://caniuse.com/import-maps):
 
-``` html
+```html
 <script type="importmap">
   {
     "imports": {
@@ -54,13 +55,14 @@ For modern browsers you can use ES modules build with (optional) [import maps](h
 <script type="module">
   import { Mask, MaskInput, vMaska } from 'maska'
 
-  new MaskInput("[data-maska]") // for masked input
-  const mask = new Mask({ mask: "#-#" }) // for programmatic use
-  Vue.createApp({ directives: { maska: vMaska }}).mount('#app') // Vue directive
+  new MaskInput('[data-mask]') // for masked input
+  const mask = new Mask({ mask: '#-#' }) // for programmatic use
+  Vue.createApp({ directives: { maska: vMaska } }).mount('#app') // Vue directive
 </script>
 ```
 
 Notice that we are using `<script type="module">` in this case.
+
 <!-- tabs:end -->
 
 # Usage
@@ -72,66 +74,69 @@ Notice that we are using `<script type="module">` in this case.
 - `vMaska` directive to simplify using of library within Vue components
 
 <!-- tabs:start -->
+
 ## **Vanilla JS**
 
-Start with simple input element and `data-maska` attribute:
+Start with simple input element and `data-mask` attribute:
 
-``` html
-<input data-maska="#-#">
+```html
+<input data-mask="#-#" />
 ```
 
 Then import and init `MaskInput`, passing input element(s) or `querySelector` expression as first argument:
 
-``` ts
-import { MaskInput } from "maska"
-new MaskInput("[data-maska]")
+```ts
+import { MaskInput } from 'maska'
+new MaskInput('[data-mask]')
 ```
 
-Usually you set mask via `data-maska` attribute. But you can pass mask and other [options](#options) via second argument (it will be a default options that can be overriden by `data-maska-` attributes):
+Usually you set mask via `data-mask` attribute. But you can pass mask and other [options](#options) via second argument (it will be a default options that can be overriden by `data-mask-` attributes):
 
-``` ts
-new MaskInput("input", { mask: "#-#" })
+```ts
+new MaskInput('input', { mask: '#-#' })
 ```
 
 To destroy mask use `destroy()` method:
 
-``` ts
+```ts
 const mask = new MaskInput(...)
 mask.destroy()
 ```
 
 ## **Vue**
 
-Import `vMaska` directive and apply it to the input along with `data-maska` attribite:
+Import `vMaska` directive and apply it to the input along with `data-mask` attribite:
 
 <!-- tabs:start -->
+
 ### **Composition API**
 
-``` html
+```html
 <script setup>
-import { vMaska } from "maska"
+  import { vMaska } from 'maska'
 </script>
 
 <template>
-  <input v-maska data-maska="#-#">
+  <input v-maska data-mask="#-#" />
 </template>
 ```
 
 ### **Options API**
 
-``` html
+```html
 <script>
-import { vMaska } from "maska"
+  import { vMaska } from 'maska'
 
-export default {
-  directives: { maska: vMaska }
-}
+  export default {
+    directives: { maska: vMaska }
+  }
 </script>
 
 <template>
-  <input v-maska data-maska="#-#">
+  <input v-maska data-mask="#-#" />
 </template>
 ```
+
 <!-- tabs:end -->
 
 ### Get value
@@ -145,166 +150,175 @@ This variable should be a reactive object that will contains three fields after 
 - `completed`: boolean flag indicating that mask is completed
 
 <!-- tabs:start -->
+
 ### **Composition API**
 
-``` html
+```html
 <script setup>
-import { reactive, ref } from "vue"
-import { vMaska } from "maska"
+  import { reactive, ref } from 'vue'
+  import { vMaska } from 'maska'
 
-const maskedValue = ref('')
-const bindedObject = reactive({})
+  const maskedValue = ref('')
+  const bindedObject = reactive({})
 </script>
 
 <template>
-  <input v-maska="bindedObject" v-model="maskedValue">
+  <input v-maska="bindedObject" v-model="maskedValue" />
 
-  Masked value: {{ maskedValue }} or {{ bindedObject.masked }}
-  Unmasked value: {{ bindedObject.unmasked }}
+  Masked value: {{ maskedValue }} or {{ bindedObject.masked }} Unmasked value:
+  {{ bindedObject.unmasked }}
   <span v-if="bindedObject.completed">✅ Mask completed</span>
 </template>
 ```
 
 ### **Options API**
 
-``` html
+```html
 <script>
-import { vMaska } from "maska"
+  import { vMaska } from 'maska'
 
-export default {
-  directives: { maska: vMaska },
-  data: () => ({
-    maskedValue: "",
-    bindedObject: {
-      masked: "",
-      unmasked: "",
-      completed: false
-    }
-  })
-}
+  export default {
+    directives: { maska: vMaska },
+    data: () => ({
+      maskedValue: '',
+      bindedObject: {
+        masked: '',
+        unmasked: '',
+        completed: false
+      }
+    })
+  }
 </script>
 
 <template>
-  <input v-maska="bindedObject" v-model="maskedValue">
+  <input v-maska="bindedObject" v-model="maskedValue" />
 
-  Masked value: {{ maskedValue }} or {{ bindedObject.masked }}
-  Unmasked value: {{ bindedObject.unmasked }}
+  Masked value: {{ maskedValue }} or {{ bindedObject.masked }} Unmasked value:
+  {{ bindedObject.unmasked }}
   <span v-if="bindedObject.completed">✅ Mask completed</span>
 </template>
 ```
+
 <!-- tabs:end -->
 
 ### Set mask options
 
-To set default options for the mask you could use directive *argument* (part after `v-maska:`). It can be plain or reactive object and should be wrapped in `[]`:
+To set default options for the mask you could use directive _argument_ (part after `v-maska:`). It can be plain or reactive object and should be wrapped in `[]`:
 
 <!-- tabs:start -->
+
 ### **Composition API**
 
-``` html
+```html
 <script setup>
-import { reactive } from "vue"
-import { vMaska } from "maska"
+  import { reactive } from 'vue'
+  import { vMaska } from 'maska'
 
-const options = reactive({
-  mask: "#-#",
-  eager: true
-})
+  const options = reactive({
+    mask: '#-#',
+    eager: true
+  })
 </script>
 
 <template>
-  <input v-maska:[options]>
+  <input v-maska:[options] />
 </template>
 ```
 
 ### **Options API**
 
-``` html
+```html
 <script>
-import { vMaska } from "maska"
+  import { vMaska } from 'maska'
 
-export default {
-  directives: { maska: vMaska },
-  data: () => ({
-    options: {
-      mask: "#-#",
-      eager: true
-    }
-  })
-}
+  export default {
+    directives: { maska: vMaska },
+    data: () => ({
+      options: {
+        mask: '#-#',
+        eager: true
+      }
+    })
+  }
 </script>
 
 <template>
-  <input v-maska:[options]>
+  <input v-maska:[options] />
 </template>
 ```
+
 <!-- tabs:end -->
 
 #### Global registration of directive
 
 <!-- tabs:start -->
+
 ### **Vue 3**
 
-``` ts
-import { createApp } from "vue"
-import { vMaska } from "maska"
+```ts
+import { createApp } from 'vue'
+import { vMaska } from 'maska'
 
-createApp({}).directive("maska", vMaska)
+createApp({}).directive('maska', vMaska)
 
 // or in case of CDN load
-Vue.createApp({}).directive("maska", Maska.vMaska)
+Vue.createApp({}).directive('maska', Maska.vMaska)
 ```
 
 ### **Vue 2**
 
-``` ts
-import Vue from "vue"
-import { vMaska } from "maska"
+```ts
+import Vue from 'vue'
+import { vMaska } from 'maska'
 
-Vue.directive("maska", vMaska)
+Vue.directive('maska', vMaska)
 
 // or in case of CDN load
-Vue.directive("maska", Maska.vMaska)
+Vue.directive('maska', Maska.vMaska)
 ```
+
 <!-- tabs:end -->
 
 ## **Nuxt 3**
 
 To use Maska in Nuxt 3 you can make a simple plugin. Create file `maska.ts` in `plugins` folder:
 
-``` ts
-import { vMaska } from "maska"
+```ts
+import { vMaska } from 'maska'
 
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.directive("maska", vMaska)
+  nuxtApp.vueApp.directive('maska', vMaska)
 })
 ```
 
 Now you can use `v-maska` directive in your app:
 
-``` html
-<input v-model="value" v-maska data-maska="#-#" />
+```html
+<input v-model="value" v-maska data-mask="#-#" />
 ```
+
 <!-- tabs:end -->
 
 # Options
 
 ## `Mask` options
 
-Every option of `Mask` class can be set via `data-maska-` attributes or by passing on init.
-Options passed on init will be used as defaults and could be overriden by `data-maska-` attributes.
+Every option of `Mask` class can be set via `data-mask-` attributes or by passing on init.
+Options passed on init will be used as defaults and could be overriden by `data-mask-` attributes.
 
 <!-- tabs:start -->
+
 ### **Description**
 
-- `mask / data-maska` — mask to apply (**string**, **array of strings** or **function**). If you pass empty string or `null` it will disable a mask
-- `tokens / data-maska-tokens` — custom tokens object
-- `tokensReplace / data-maska-tokens-replace` — if custom tokens should replace default tokens (if not set, they will merge)
-- `eager / data-maska-eager` — eager mode will show static characters before you type them, e.g. when you type `1`, eager mask `#-#` will show `1-` and non-eager will show `1`
-- `reversed / data-maska-reversed` — in reversed mode mask will grow backwards, e.g. for numbers
+- `mask / data-mask` — mask to apply (**string**, **array of strings** or **function**). If you pass empty string or `null` it will disable a mask
+- `tokens / data-mask-tokens` — custom tokens object
+- `tokensReplace / data-mask-tokens-replace` — if custom tokens should replace default tokens (if not set, they will merge)
+- `eager / data-mask-eager` — eager mode will show static characters before you type them, e.g. when you type `1`, eager mask `#-#` will show `1-` and non-eager will show `1`
+- `reversed / data-mask-reversed` — in reversed mode mask will grow backwards, e.g. for numbers
 
 ### **Types**
-``` ts
+
+```ts
 interface MaskOptions {
   mask?: MaskType
   tokens?: MaskTokens
@@ -313,18 +327,20 @@ interface MaskOptions {
   reversed?: boolean
 }
 ```
+
 <!-- tabs:end -->
 
-``` html
-<input data-maska="A-A" data-maska-tokens="A:[A-Z]" data-maska-eager>
+```html
+<input data-mask="A-A" data-mask-tokens="A:[A-Z]" data-mask-eager />
 ```
 
 ## `MaskInput` options
 
 `MaskInput` options could be set only by passing second argument on init.
-Along with `MaskInput` options you could pass any `Mask` options as well (or set them via `data-maska-` attributes).
+Along with `MaskInput` options you could pass any `Mask` options as well (or set them via `data-mask-` attributes).
 
 <!-- tabs:start -->
+
 ### **Description**
 
 - `onMaska` — [callback](#events) on every mask processing
@@ -332,18 +348,20 @@ Along with `MaskInput` options you could pass any `Mask` options as well (or set
 - `postProcess` — [hook](#hooks) after mask processing
 
 ### **Types**
-``` ts
+
+```ts
 interface MaskInputOptions extends MaskOptions {
   onMaska?: (detail: MaskaDetail) => void
   preProcess?: (value: string) => string
   postProcess?: (value: string) => string
 }
 ```
+
 <!-- tabs:end -->
 
-``` ts
-new MaskInput("input", {
-  mask: "#-#",
+```ts
+new MaskInput('input', {
+  mask: '#-#',
   reversed: true,
   onMaska: (detail: MaskaDetail) => console.log(detail.completed)
 })
@@ -353,7 +371,7 @@ new MaskInput("input", {
 
 There are 3 tokens defined by default:
 
-``` ts
+```ts
 {
   '#': { pattern: /[0-9]/ },       // digits
   '@': { pattern: /[a-zA-Z]/ },    // letters
@@ -365,12 +383,13 @@ There are 3 tokens defined by default:
 
 ## Custom tokens
 
-Add custom tokens via `data-maska-tokens` attribute or by `tokens` option:
+Add custom tokens via `data-mask-tokens` attribute or by `tokens` option:
 
 <!-- tabs:start -->
+
 ### **By data-attr**
 
-When using `data-maska-tokens`, there are two possible formats:
+When using `data-mask-tokens`, there are two possible formats:
 
 - **Full form** should be a valid JSON-string (but can use both single and double quotes) with pattern in string format without delimiters
 - **Simple form** should be a string in format: `T:P:M|T:P:M` where:
@@ -379,34 +398,35 @@ When using `data-maska-tokens`, there are two possible formats:
   - `M` is optional modifier (see below)
   - `|` is separator for multiple tokens
 
-``` html
-<input data-maska="Z-Z" data-maska-tokens="{ 'Z': { 'pattern': '[A-Z]' }}">
-<input data-maska="Z-Z" data-maska-tokens="Z:[A-Z]">
-<input data-maska="Z-z" data-maska-tokens="Z:[A-Z]|z:[a-z]:multiple">
+```html
+<input data-mask="Z-Z" data-mask-tokens="{ 'Z': { 'pattern': '[A-Z]' }}" />
+<input data-mask="Z-Z" data-mask-tokens="Z:[A-Z]" />
+<input data-mask="Z-z" data-mask-tokens="Z:[A-Z]|z:[a-z]:multiple" />
 ```
 
-?> You can’t set `transform` function for token via `data-maska-tokens`.
+?> You can’t set `transform` function for token via `data-mask-tokens`.
 If you need this, use `tokens` option instead.
 
 ### **By option**
 
 When using `tokens` option, pattern should be a valid regular expression object:
 
-``` ts
-new MaskInput("[data-maska]", {
-  mask: "A-A",
+```ts
+new MaskInput('[data-mask]', {
+  mask: 'A-A',
   tokens: {
     A: { pattern: /[A-Z]/, transform: (chr: string) => chr.toUpperCase() }
   }
 })
 ```
+
 <!-- tabs:end -->
 
 ## Token modifiers
 
 Every token can have a modifier, for example:
 
-``` ts
+```ts
 {
   0: { pattern: /[0-9]/, optional: true },
   9: { pattern: /[0-9]/, repeated: true },
@@ -417,18 +437,18 @@ Every token can have a modifier, for example:
 - `multiple` for token that can match multiple characters till the next token starts
 - `repeated` for tokens that should be repeated. This token will match only one character, but the token itself (or group of such tokens) can be repeated any number of times
 
-| Modifier   | Example usage    | Mask                               | Tokens
-| ---        | ---              | ---                                | ---
-| `optional` | IP address       | `#00.#00.#00.#00`                  | `0:[0-9]:optional`
-| `multiple` | CARDHOLDER NAME  | `A A`                              | `A:[A-Z]:multiple`
-| `repeated` | Money (1 234,56) | `9 99#,##` <small>reversed</small> | `9:[0-9]:repeated`
+| Modifier   | Example usage    | Mask                               | Tokens             |
+| ---------- | ---------------- | ---------------------------------- | ------------------ |
+| `optional` | IP address       | `#00.#00.#00.#00`                  | `0:[0-9]:optional` |
+| `multiple` | CARDHOLDER NAME  | `A A`                              | `A:[A-Z]:multiple` |
+| `repeated` | Money (1 234,56) | `9 99#,##` <small>reversed</small> | `9:[0-9]:repeated` |
 
 ## Transform tokens
 
 For custom tokens you can define `transform` function, applied to a character before masking.
 For example, transforming letters to uppercase on input:
 
-``` ts
+```ts
 {
   A: { pattern: /[A-Z]/, transform: (chr: string) => chr.toUpperCase() }
 }
@@ -443,9 +463,9 @@ Pass `mask` as **array** or **function** to make it dynamic:
 - With **array** a suitable mask will be chosen by length (smallest first)
 - With **function** you can select mask with custom logic using value
 
-``` ts
-new MaskInput("input", {
-  mask: (value: string) => value.startsWith('1') ? '#-#' : '##-##'
+```ts
+new MaskInput('input', {
+  mask: (value: string) => (value.startsWith('1') ? '#-#' : '##-##')
 })
 ```
 
@@ -458,8 +478,8 @@ Use hooks for transforming whole value:
 
 For example, you can use it to check for a maximum length of masked string:
 
-``` ts
-new MaskInput("input", {
+```ts
+new MaskInput('input', {
   postProcess: (value: string) => value.slice(0, 5)
 })
 ```
@@ -474,22 +494,25 @@ There are two events you can subscribe to get the masking result:
 They are essentially the same, but the `input` event could be fired by any input logic, and the `maska` event is library specific.
 
 <!-- tabs:start -->
+
 ## **Vanilla JS**
 
-``` ts
-document.querySelector("input").addEventListener("maska", onMaska)
+```ts
+document.querySelector('input').addEventListener('maska', onMaska)
 ```
 
 ## **Vue**
 
-``` html
-<input v-maska data-maska="#-#" @maska="onMaska" />
+```html
+<input v-maska data-mask="#-#" @maska="onMaska" />
 ```
+
 <!-- tabs:end -->
 
 Both events contains `detail` property with given structure:
 
 <!-- tabs:start -->
+
 ### **Description**
 
 - `masked`: masked value
@@ -497,16 +520,18 @@ Both events contains `detail` property with given structure:
 - `completed`: flag that current mask is completed
 
 ### **Types**
-``` ts
+
+```ts
 interface MaskaDetail {
   masked: string
   unmasked: string
   completed: boolean
 }
 ```
+
 <!-- tabs:end -->
 
-``` ts
+```ts
 const onMaska = (event: CustomEvent<MaskaDetail>) => {
   console.log({
     masked: event.detail.masked,
@@ -519,25 +544,29 @@ const onMaska = (event: CustomEvent<MaskaDetail>) => {
 Alternatively, you can pass callback function directly with `MaskInput` option `onMaska`:
 
 <!-- tabs:start -->
+
 ### **Vanilla JS**
-``` ts
-new MaskInput("input", {
+
+```ts
+new MaskInput('input', {
   onMaska: (detail: MaskaDetail) => console.log(detail.completed)
 })
 ```
 
 ### **Vue**
-``` html
+
+```html
 <script setup>
-const options = {
-  onMaska: (detail: MaskaDetail) => console.log(detail.completed)
-}
+  const options = {
+    onMaska: (detail: MaskaDetail) => console.log(detail.completed)
+  }
 </script>
 
 <template>
-  <input v-maska:[options]>
+  <input v-maska:[options] />
 </template>
 ```
+
 <!-- tabs:end -->
 
 # Programmatic use
@@ -549,12 +578,12 @@ There are three methods available:
 - `unmasked(value)` returns unmasked version of given value
 - `completed(value)` returns `true` if given value makes mask complete
 
-``` ts
-import { Mask } from "maska"
+```ts
+import { Mask } from 'maska'
 
-const mask = new Mask({ mask: "#-#" })
+const mask = new Mask({ mask: '#-#' })
 
-mask.masked("12") // = 1-2
-mask.unmasked("12") // = 12
-mask.completed("12") // = true
+mask.masked('12') // = 1-2
+mask.unmasked('12') // = 12
+mask.completed('12') // = true
 ```
